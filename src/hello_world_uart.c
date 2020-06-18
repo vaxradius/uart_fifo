@@ -103,12 +103,7 @@ am_uart_isr(void)
 
     if (ui32Status & (AM_HAL_UART_INT_RX_TMOUT | AM_HAL_UART_INT_RX))
     {
-
-		if (ui32Status & (AM_HAL_UART_INT_RX_TMOUT))
-		{
-			NVIC_DisableIRQ((IRQn_Type)(UART0_IRQn + AM_BSP_UART_PRINT_INST));
-			g_bRxTimeoutFlag = true;
-		}
+		g_bRxTimeoutFlag = true;
     }
 }
 
@@ -117,7 +112,6 @@ void uart_fifo_read_write()
 {
 	uint32_t ui32NumBytesWritten;
 	uint32_t ui32NumBytesRead;
-	uint8_t ui8outData = 'A';
 	uint8_t ui8inData;
 	am_hal_uart_fifo_read(phUART, &ui8inData, 1,&ui32NumBytesRead);
 	am_hal_uart_fifo_write(phUART, &ui8inData,  1, &ui32NumBytesWritten);
@@ -191,7 +185,6 @@ main(void)
 		{
 			uart_fifo_read_write();
 			g_bRxTimeoutFlag = false;
-            NVIC_EnableIRQ((IRQn_Type)(UART0_IRQn + AM_BSP_UART_PRINT_INST));
 		}
 
 		//
