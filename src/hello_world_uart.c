@@ -65,14 +65,6 @@ volatile bool g_bRxTimeoutFlag = false;
 
 //*****************************************************************************
 //
-// UART buffers.
-//
-//*****************************************************************************
-uint8_t g_pui8TxBuffer[256];
-uint8_t g_pui8RxBuffer[2];
-
-//*****************************************************************************
-//
 // UART configuration.
 //
 //*****************************************************************************
@@ -92,14 +84,6 @@ const am_hal_uart_config_t g_sUartConfig =
     //
     .ui32FifoLevels = (AM_HAL_UART_TX_FIFO_1_2 |
                        AM_HAL_UART_RX_FIFO_1_2),
-
-    //
-    // Buffers
-    //
-    .pui8TxBuffer = g_pui8TxBuffer,
-    .ui32TxBufferSize = sizeof(g_pui8TxBuffer),
-    .pui8RxBuffer = g_pui8RxBuffer,
-    .ui32RxBufferSize = sizeof(g_pui8RxBuffer),
 };
 
 //*****************************************************************************
