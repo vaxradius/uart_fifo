@@ -127,7 +127,6 @@ main(void)
 {
     am_util_id_t sIdDevice;
     uint32_t ui32StrBuf;
-	am_hal_gpio_pincfg_t pincfg = {0};
 
     //
     // Set the clock frequency.
@@ -151,22 +150,12 @@ main(void)
     am_hal_uart_initialize(0, &phUART);
     am_hal_uart_power_control(phUART, AM_HAL_SYSCTRL_WAKE, false);
     am_hal_uart_configure(phUART, &g_sUartConfig);
-	UARTn(0)->CR_b.RTSEN = 1;
-    UARTn(0)->CR_b.CTSEN = 1;
-	
-	
-	
+
     //
     // Enable the UART pins.
     //
     am_hal_gpio_pinconfig(AM_BSP_GPIO_COM_UART_TX, g_AM_BSP_GPIO_COM_UART_TX);
     am_hal_gpio_pinconfig(AM_BSP_GPIO_COM_UART_RX, g_AM_BSP_GPIO_COM_UART_RX);
-
-	pincfg.uFuncSel = AM_HAL_PIN_33_UA0CTS;
-	am_hal_gpio_pinconfig(33, pincfg);
-	pincfg.uFuncSel = AM_HAL_PIN_34_UA0RTS;
-	pincfg.eDriveStrength = AM_HAL_GPIO_PIN_DRIVESTRENGTH_2MA;
-	am_hal_gpio_pinconfig(34, pincfg);
 
     //
     // Enable interrupts.
