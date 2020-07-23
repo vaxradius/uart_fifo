@@ -77,7 +77,7 @@ const am_hal_uart_config_t g_sUartConfig =
     .ui32DataBits = AM_HAL_UART_DATA_BITS_8,
     .ui32Parity = AM_HAL_UART_PARITY_NONE,
     .ui32StopBits = AM_HAL_UART_ONE_STOP_BIT,
-    .ui32FlowControl = AM_HAL_UART_FLOW_CTRL_NONE,
+    .ui32FlowControl = AM_HAL_UART_FLOW_CTRL_RTS_CTS,
 
     //
     // Set TX and RX FIFOs to interrupt at half-full.
@@ -152,9 +152,6 @@ main(void)
     am_hal_uart_power_control(phUART, AM_HAL_SYSCTRL_WAKE, false);
     am_hal_uart_configure(phUART, &g_sUartConfig);
 
-	UARTn(0)->CR_b.RTSEN = 1;
-	UARTn(0)->CR_b.CTSEN = 1;
-
     //
     // Enable the UART pins.
     //
@@ -163,9 +160,9 @@ main(void)
 	
 	pincfg.uFuncSel = AM_HAL_PIN_33_UA0CTS;
 	am_hal_gpio_pinconfig(33, pincfg);
-	pincfg.uFuncSel = AM_HAL_PIN_34_UA0RTS;	
+	pincfg.uFuncSel = AM_HAL_PIN_37_UA0RTS;	
 	pincfg.eDriveStrength = AM_HAL_GPIO_PIN_DRIVESTRENGTH_2MA;
-	am_hal_gpio_pinconfig(34, pincfg);
+	am_hal_gpio_pinconfig(37, pincfg);
 
     //
     // Enable interrupts.
